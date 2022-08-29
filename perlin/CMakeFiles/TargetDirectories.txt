@@ -1,0 +1,3 @@
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/perlin/CMakeFiles/rebuild_cache.dir
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/perlin/CMakeFiles/edit_cache.dir
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/perlin/CMakeFiles/perlin.dir

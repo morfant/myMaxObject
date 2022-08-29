@@ -1,0 +1,338 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/commonsyms.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext.h
+ext_infer_system.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_infer_system.h
+ext_common.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_common.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+ext_assist.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_assist.h
+ext_maxtypes.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_maxtypes.h
+ext_byteorder.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_byteorder.h
+ext_sysmem.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_sysmem.h
+ext_sysfile.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_sysfile.h
+ext_systime.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_systime.h
+ext_expr.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_expr.h
+ext_path.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_path.h
+ext_wind.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_wind.h
+ext_proto.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_proto.h
+ext_atomarray.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_atomarray.h
+ext_atombuf.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_atombuf.h
+ext_obstring.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obstring.h
+ext_hashtab.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_hashtab.h
+ext_dictionary.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_dictionary.h
+ext_obex_util.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obex_util.h
+commonsyms.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/commonsyms.h
+ext_strings.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_strings.h
+ext_obex.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obex.h
+ext_systhread.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_systhread.h
+ext_drag.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_drag.h
+jpatcher_api.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/jpatcher_api.h
+ext_charset.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_charset.h
+ext_typelist.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_typelist.h
+ext_post.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_post.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_assist.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_atomarray.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_atombuf.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_atomic.h
+stdint.h
+-
+stdint.h
+-
+libkern/OSAtomic.h
+-
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_byteorder.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_common.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_common.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_charset.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_common.h
+ext_infer_system.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_infer_system.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_dictionary.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+ext_hashtab.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_hashtab.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_drag.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_expr.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_hashtab.h
+ext_linklist.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_linklist.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_infer_system.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_linklist.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_atomic.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_atomic.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_maxtypes.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_common.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_common.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obex.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+ext_preprocessor.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_preprocessor.h
+ext_hashtab.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_hashtab.h
+ext_dictionary.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_dictionary.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obex_util.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+stdarg.h
+-
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obstring.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_path.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_common.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_common.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+ext_sysfile.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_sysfile.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_post.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+ext_prefix_includes.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix_includes.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix_includes.h
+MacTypes.h
+-
+sys/types.h
+-
+malloc.h
+-
+windows.h
+-
+richedit.h
+-
+commctrl.h
+-
+assert.h
+-
+ctype.h
+-
+float.h
+-
+math.h
+-
+setjmp.h
+-
+stdarg.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stddef.h
+-
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_preprocessor.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_proto.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+ext_proto_win.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_proto_win.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_proto_win.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_strings.h
+stddef.h
+-
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_sysfile.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_sysmem.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_systhread.h
+ext_obex.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_obex.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_systime.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_typelist.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+max_types.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_wind.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/jpatcher_api.h
+jpatcher_syms.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/jpatcher_syms.h
+ext_dictionary.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_dictionary.h
+max_keydefs.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_keydefs.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/jpatcher_syms.h
+ext_prefix.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_prefix.h
+ext_mess.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_mess.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_keydefs.h
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/max_types.h
+ext_infer_system.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/max-sdk-base/c74support/max-includes/ext_infer_system.h
+stdint.h
+-
+stdbool.h
+-
+
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/perlin/perlin.c
+ext.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/perlin/ext.h
+ext_obex.h
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/perlin/ext_obex.h
+

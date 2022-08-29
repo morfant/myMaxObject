@@ -1,0 +1,3 @@
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/logistic/CMakeFiles/logistic.dir
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/logistic/CMakeFiles/ALL_BUILD.dir
+/Users/giy/Documents/Max 8/Packages/max-sdk/source/my/logistic/CMakeFiles/ZERO_CHECK.dir

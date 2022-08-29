@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+ZERO_CHECK in logistic, no dependencies
+logistic in logistic, depends on:
+ZERO_CHECK in logistic (explicit)
