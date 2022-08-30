@@ -5,6 +5,8 @@
 	@ingroup examples
 */
 
+#include <vector>
+#include <iostream>
 #include "ext.h"			// standard Max include, always required (except in Jitter)
 #include "ext_obex.h"		// required for "new" style objects
 #include "z_dsp.h"			// required for MSP objects
@@ -14,6 +16,7 @@
 typedef struct _filter {
 	t_pxobject		ob;			// the object itself (t_pxobject in MSP instead of t_object)
 	double 			m_sample;
+	std::vector<double> 			m_samples;
 	int 			m_delayOffset;
 } t_filter;
 
@@ -61,6 +64,9 @@ void *filter_new(t_symbol *s, long argc, t_atom *argv)
 		// use 0 if you don't need inlets
 
 		outlet_new(x, "signal"); 		// signal outlet (note "signal" rather than NULL)
+
+		x->m_delayOffset = 1;
+
 	}
 	return (x);
 }
@@ -86,9 +92,18 @@ void filter_assist(t_filter *x, void *b, long m, long a, char *s)
 void filter_int(t_filter *x, long l)
 {
 	long in = proxy_getinlet((t_object *)x);
+	post("filter_int()");
 
 	if (in == 1) {
 		x->m_delayOffset = l;
+		post("x->m_delayOffset: %ld", x->m_delayOffset);
+		int i = 0;
+		x->m_samples.clear();
+		while(i < x->m_delayOffset) {
+			x->m_samples.push_back(0.0);
+			post("x->m_samples(%d): %f", i, x->m_samples[i]);
+			i++;
+		}
 	}
 }
 
@@ -109,8 +124,19 @@ void filter_dsp64(t_filter *x, t_object *dsp64, short *count, double samplerate,
 	// 6: a generic pointer that you can use to pass any additional data to your perform method
 
 	object_method(dsp64, gensym("dsp_add64"), x, filter_perform64, 0, NULL);
+
 	x->m_sample = 0.0;
-	x->m_delayOffset = 1;
+
+
+	int i = 0;
+	x->m_samples.clear();
+	while(i < x->m_delayOffset) {
+		x->m_samples.push_back(0.0);
+		post("x->m_samples(%d): %f", i, x->m_samples[i]);
+		i++;
+	}
+
+
 }
 
 
@@ -119,15 +145,43 @@ void filter_perform64(t_filter *x, t_object *dsp64, double **ins, long numins, d
 {
 	t_double *inL = ins[0];		// we get audio for each inlet of the object from the **ins argument
 	t_double *outL = outs[0];	// we get audio for each outlet of the object from the **outs argument
-	int n = sampleframes;
-	double samp = x->m_sample;
+	int n = 0;
+	int m = sampleframes;
+	double sample = x->m_sample;
+
 
 	// this perform method simply copies the input to the output, offsetting the value
-	while (n--) {
+	/*
+	while (n < sampleframes) {
 		double valL = *inL++;
+		double samp;
+
+		if (n >= x->m_delayOffset) {
+			samp = ins[0][n - x->m_delayOffset];
+		} else {
+			samp = x->m_samples[n];
+		}
+
 		*outL++ = (valL + samp) * 0.5;
-		samp = *(inL-2);
+
+		if (n == sampleframes - 1) {
+
+			for (size_t i = 0; i < x->m_delayOffset; i++) {
+				x->m_samples[i] = ins[0][n - (x->m_delayOffset - 1 - i)];
+			}
+			// x->m_samples[0] = ins[0][n - 1];
+			// x->m_samples[1] = ins[0][n];
+
+		}
+		n++;
 	}
-	x->m_sample = samp;
+	*/
+
+	while(m--) {
+		double valL = *inL++;
+		*outL++ = (valL + sample) * 0.5;
+		sample = valL;
+	}
+	x->m_sample = sample;
 }
 
