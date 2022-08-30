@@ -1,7 +1,7 @@
 /**
     @file
-    perlin
-    gy - giy.hands@gmail.com 
+    perlin1D1D
+    giy - giy.hands@gmail.com 
 
     @ingroup   noise 
 */
@@ -18,7 +18,7 @@
 
 
 ////////////////////////// object struct
-typedef struct _perlin
+typedef struct _perlin1D
 {
     t_object ob;            // the object itself (must be first)
     void* outlet_1;
@@ -34,48 +34,48 @@ typedef struct _perlin
     long m_seed;
     long m_octaves;
     double m_persistence;
-} t_perlin;
+} t_perlin1D;
 
 ///////////////////////// function prototypes
 //// standard set
-void *perlin_new(t_symbol *s, long argc, t_atom *argv);
-void perlin_free(t_perlin *x);
-void perlin_assist(t_perlin *x, void *b, long m, long a, char *s);
-void perlin_handle_int(t_perlin* x, long l);
-void perlin_handle_float(t_perlin* x, double f);
-void perlin_handle_bang(t_perlin* x);
-void perlin_handle_hello(t_perlin* x);
-double perlin_1d_noise(t_perlin* x, double v1);
+void *perlin1D_new(t_symbol *s, long argc, t_atom *argv);
+void perlin1D_free(t_perlin1D *x);
+void perlin1D_assist(t_perlin1D *x, void *b, long m, long a, char *s);
+void perlin1D_handle_int(t_perlin1D* x, long l);
+void perlin1D_handle_float(t_perlin1D* x, double f);
+void perlin1D_handle_bang(t_perlin1D* x);
+void perlin1D_handle_hello(t_perlin1D* x);
+double PerlinNoise1D(t_perlin1D* x, double v1);
     
 //////////////////////// global class pointer variable
-void *perlin_class;
+void *perlin1D_class;
 double gradients[64];
 
 void ext_main(void *r)
 {
     t_class *c;
 
-    c = class_new("perlin", (method)perlin_new, (method)perlin_free, (long)sizeof(t_perlin),
+    c = class_new("perlin1D", (method)perlin1D_new, (method)perlin1D_free, (long)sizeof(t_perlin1D),
                   0L /* leave NULL!! */, A_GIMME, 0);
 
     /* you CAN'T call this from the patcher */
-    class_addmethod(c, (method)perlin_assist, "assist", A_CANT, 0);
-    class_addmethod(c, (method)perlin_handle_int, "int", A_LONG, 0);
-    class_addmethod(c, (method)perlin_handle_float, "float", A_FLOAT, 0);
-    class_addmethod(c, (method)perlin_handle_bang, "bang", 0);
-    class_addmethod(c, (method)perlin_handle_hello, "hello", 0);
+    class_addmethod(c, (method)perlin1D_assist, "assist", A_CANT, 0);
+    class_addmethod(c, (method)perlin1D_handle_int, "int", A_LONG, 0);
+    class_addmethod(c, (method)perlin1D_handle_float, "float", A_FLOAT, 0);
+    class_addmethod(c, (method)perlin1D_handle_bang, "bang", 0);
+    class_addmethod(c, (method)perlin1D_handle_hello, "hello", 0);
 
     class_register(CLASS_BOX, c); /* CLASS_NOBOX */
-    perlin_class = c;
+    perlin1D_class = c;
 
-    post("I am the perlin object");
+    post("I am the perlin1D object");
 }
 
-void perlin_handle_hello(t_perlin* x) {
+void perlin1D_handle_hello(t_perlin1D* x) {
     object_post((t_object*)x, "Hello!!!");
 }
 
-void perlin_handle_bang(t_perlin* x) {
+void perlin1D_handle_bang(t_perlin1D* x) {
     
     long n = proxy_getinlet((t_object*)x); // inlet의 번호
 //    outlet_bang(x->outlet_1);
@@ -98,12 +98,6 @@ double IntegerNoise(int n) {
 double noise1D(int x, int seed) {
     return IntegerNoise(x * 1619 + seed * 13397);
 }
-
-// vec2 random2(vec2 st){
-//     st = vec2( dot(st,vec2(127.1,311.7)),
-//               dot(st,vec2(269.5,183.3)) );
-//     return -1.0 + 2.0*fract(sin(st)*43758.5453123);
-// }
 
 double easing(double n) {
     // -2x3 + 3x2
@@ -144,7 +138,7 @@ double CoherentNoiseEasing2(double x) {
     return lerp(n0, n1, easing2(fracX));
 }
 
-void initGradients(t_perlin* x, int seed) {
+void initGradients(t_perlin1D* x, int seed) {
     x->m_seed = seed;
     for (int i = 0; i < 64; i++) {
         gradients[i] = noise1D(i, x->m_seed);
@@ -160,7 +154,7 @@ double CoherentNoiseGradient(double x) {
 }
 
 
-double perlin1D(t_perlin* x, double f, int octaves, double persistence) {
+double perlin1D(t_perlin1D* x, double f, int octaves, double persistence) {
     double total = 0.0;
     double frequency = 1.0;
     double amplitude = 1.0;
@@ -175,7 +169,7 @@ double perlin1D(t_perlin* x, double f, int octaves, double persistence) {
     return total/maxValue;
 }
 
-void perlin_handle_int(t_perlin* x, long ld) {
+void perlin1D_handle_int(t_perlin1D* x, long ld) {
  
     long n = proxy_getinlet((t_object*)x); // inlet의 번호
     if (n == 0) { // 왼쪽 inlet으로 bang이 들어올 때,
@@ -193,7 +187,7 @@ void perlin_handle_int(t_perlin* x, long ld) {
     }
 }
 
-void perlin_handle_float(t_perlin* x, double f) {
+void perlin1D_handle_float(t_perlin1D* x, double f) {
 
     long n = proxy_getinlet((t_object*)x); // inlet의 번호
     if (n == 0) {
@@ -211,7 +205,6 @@ void perlin_handle_float(t_perlin* x, double f) {
         double r4 = CoherentNoiseGradient(f);
         outlet_float(x->outlet_5, r4);
 
-
         double r5 = perlin1D(x, f, x->m_octaves, x->m_persistence);
         outlet_float(x->outlet_6, r5);
 
@@ -222,7 +215,7 @@ void perlin_handle_float(t_perlin* x, double f) {
 
 }
 
-void perlin_assist(t_perlin *x, void *b, long m, long a, char *s)
+void perlin1D_assist(t_perlin1D *x, void *b, long m, long a, char *s)
 {
     if (m == ASSIST_INLET) { // inlet
         sprintf(s, "I am inlet %ld", a);
@@ -232,31 +225,17 @@ void perlin_assist(t_perlin *x, void *b, long m, long a, char *s)
     }
 }
 
-void perlin_free(t_perlin *x)
+void perlin1D_free(t_perlin1D *x)
 {
     ;
 }
 
-
-
-double perlin_1d_noise(t_perlin* x, double v1) {
-
-    double iptr;
-    double f;
-    f = modf(sin(v1) * 43758.5453123, &iptr);
-
-    printf("f: %f\n", f);
-
-    return f;
-}
-
-
-void *perlin_new(t_symbol *s, long argc, t_atom *argv)
+void *perlin1D_new(t_symbol *s, long argc, t_atom *argv)
 {
-    t_perlin *x = NULL;
+    t_perlin1D *x = NULL;
     long i;
 
-    if ((x = (t_perlin *)object_alloc(perlin_class))) {
+    if ((x = (t_perlin1D *)object_alloc(perlin1D_class))) {
         object_post((t_object *)x, "a new %s object was instantiated: %p", s->s_name, x);
         object_post((t_object *)x, "it has %ld arguments", argc);
         
