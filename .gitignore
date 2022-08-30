@@ -6,3 +6,4 @@
 */Makefile
 */CMakeCache.txt
 perlin1D/test/run
+.vscode/settings.json
