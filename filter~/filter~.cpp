@@ -163,6 +163,7 @@ void filter_perform64(t_filter *x, t_object *dsp64, double **ins, long numins, d
 		}
 
 		*outL++ = (valL + samp) * 0.5;
+		// *outL++ = (valL + (n >= x->m_delayOffset ? ins[0][n - x->m_delayOffset] : x->m_samples[n])) * 0.5;
 
 		if (n == sampleframes - 1) {
 
