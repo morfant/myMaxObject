@@ -1,6 +1,6 @@
 /**
 	@file
-	LPF~ a simple Low Pass Filter
+	HPF~ a simple High Pass Filter
 	giy (giy.hands@gmail.com)
 	@ingroup filter
 */
@@ -14,76 +14,69 @@
 
 
 // struct to represent the object's state
-typedef struct _LPF {
+typedef struct _HPF {
 	t_pxobject		ob;			// the object itself (t_pxobject in MSP instead of t_object)
-	double m_delayed;
-	double m_fc;
-} t_LPF;
+	double 			m_delayed;
+	double 			m_fc; 		// cut off frequency
+} t_HPF;
 
 
 // method prototypes
-void *LPF_new(t_symbol *s, long argc, t_atom *argv);
-void LPF_free(t_LPF *x);
-void LPF_assist(t_LPF *x, void *b, long m, long a, char *s);
-void LPF_int(t_LPF *x, long l);
-void LPF_float(t_LPF *x, double f);
-void LPF_dsp64(t_LPF *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
-void LPF_perform64(t_LPF *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
+void *HPF_new(t_symbol *s, long argc, t_atom *argv);
+void HPF_free(t_HPF *x);
+void HPF_assist(t_HPF *x, void *b, long m, long a, char *s);
+void HPF_int(t_HPF *x, long l);
+void HPF_dsp64(t_HPF *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
+void HPF_perform64(t_HPF *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam);
 
 
 // global class pointer variable
-static t_class *LPF_class = NULL;
+static t_class *HPF_class = NULL;
 double g_sr; // samplerate
-double g_freq = 300;
 
 
 //***********************************************************************************************
-
 void ext_main(void *r)
 {
 	// object initialization, note the use of dsp_free for the freemethod, which is required
 	// unless you need to free allocated memory, in which case you should call dsp_free from
 	// your custom free function.
 
-	t_class *c = class_new("LPF~", (method)LPF_new, (method)dsp_free, (long)sizeof(t_LPF), 0L, A_GIMME, 0);
+	t_class *c = class_new("HPF~", (method)HPF_new, (method)dsp_free, (long)sizeof(t_HPF), 0L, A_GIMME, 0);
 
-	class_addmethod(c, (method)LPF_int,			"int",		A_LONG,	 0);
-	class_addmethod(c, (method)LPF_float,		"float",	A_FLOAT, 0);
-	class_addmethod(c, (method)LPF_dsp64,		"dsp64",	A_CANT, 0);
-	class_addmethod(c, (method)LPF_assist,	"assist",	A_CANT, 0);
+	class_addmethod(c, (method)HPF_int,			"int",		A_LONG,	 0);
+	class_addmethod(c, (method)HPF_dsp64,		"dsp64",	A_CANT, 0);
+	class_addmethod(c, (method)HPF_assist,	"assist",	A_CANT, 0);
 
 	class_dspinit(c);
 	class_register(CLASS_BOX, c);
-	LPF_class = c;
+	HPF_class = c;
 }
 
 
-void *LPF_new(t_symbol *s, long argc, t_atom *argv)
+void *HPF_new(t_symbol *s, long argc, t_atom *argv)
 {
-	t_LPF *x = (t_LPF *)object_alloc(LPF_class);
+	t_HPF *x = (t_HPF *)object_alloc(HPF_class);
 
 	if (x) {
 		// 2 is number of inlet(s)
-		dsp_setup((t_pxobject *)x, 3);	// MSP inlets: arg is # of inlets and is REQUIRED!
+		dsp_setup((t_pxobject *)x, 2);	// MSP inlets: arg is # of inlets and is REQUIRED!
 		// use 0 if you don't need inlets
 
 		outlet_new(x, "signal"); 		// signal outlet (note "signal" rather than NULL)
-
-		// x->m_delayOffset = 1;
-
 	}
 	return (x);
 }
 
 
 // NOT CALLED!, we use dsp_free for a generic free function
-void LPF_free(t_LPF *x)
+void HPF_free(t_HPF *x)
 {
 	;
 }
 
 
-void LPF_assist(t_LPF *x, void *b, long m, long a, char *s)
+void HPF_assist(t_HPF *x, void *b, long m, long a, char *s)
 {
 	if (m == ASSIST_INLET) { //inlet
 		sprintf(s, "I am inlet %ld", a);
@@ -93,7 +86,8 @@ void LPF_assist(t_LPF *x, void *b, long m, long a, char *s)
 	}
 }
 
-void LPF_int(t_LPF *x, long l)
+
+void HPF_int(t_HPF *x, long l)
 {
 	long in = proxy_getinlet((t_object *)x);
 	if (in == 1) {
@@ -102,29 +96,8 @@ void LPF_int(t_LPF *x, long l)
 }
 
 
-void LPF_float(t_LPF *x, double f)
-{
-	long in = proxy_getinlet((t_object *)x);
-	post("LPF_float()");
-
-	if (in == 1) {
-		x->m_fc = f;
-		// x->m_delayOffset = l;
-		// post("x->m_delayOffset: %ld", x->m_delayOffset);
-		// int i = 0;
-		// x->m_samples.clear();
-		// while(i < x->m_delayOffset) {
-		// 	x->m_samples.push_back(0.0);
-		// 	post("x->m_samples(%d): %f", i, x->m_samples[i]);
-		// 	i++;
-		// }
-	} else if (in == 2) {
-		// x->m_bw = f;
-	}
-}
-
 // registers a function for the signal chain in Max
-void LPF_dsp64(t_LPF *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+void HPF_dsp64(t_HPF *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
 	post("my sample rate is: %f", samplerate);
 	post("my sample vectorsize is: %d", maxvectorsize);
@@ -139,48 +112,25 @@ void LPF_dsp64(t_LPF *x, t_object *dsp64, short *count, double samplerate, long 
 	// 5: flags to alter how the signal chain handles your object -- just pass 0
 	// 6: a generic pointer that you can use to pass any additional data to your perform method
 
-	object_method(dsp64, gensym("dsp_add64"), x, LPF_perform64, 0, NULL);
+	object_method(dsp64, gensym("dsp_add64"), x, HPF_perform64, 0, NULL);
 
 	g_sr = samplerate;
 	x->m_delayed = 0.0;
 	x->m_fc = 1000;
-
-	// for (size_t i = 0; i < 2; i++) {
-	// 	x->m_delIn[i] = 0.0;
-	// 	x->m_delOut[i] = 0.0;
-	// }
-
-	// for (size_t i = 0; i < 2; i++) {
-	// 	post("%f", x->m_delIn[i]);
-	// 	post("%f", x->m_delOut[i]);
-	// }
-
-	// x->m_bw = 700;
-
-
-	// int i = 0;
-	// x->m_samples.clear();
-	// while(i < x->m_delayOffset) {
-	// 	x->m_samples.push_back(0.0);
-	// 	post("x->m_samples(%d): %f", i, x->m_samples[i]);
-	// 	i++;
-	// }
-
-
 }
 
 
 // this is the 64-bit perform method audio vectors
-void LPF_perform64(t_LPF *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
+void HPF_perform64(t_HPF *x, t_object *dsp64, double **ins, long numins, double **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
 	t_double *inL = ins[0];		// we get audio for each inlet of the object from the **ins argument
 	t_double *outL = outs[0];	// we get audio for each outlet of the object from the **outs argument
 	int n = sampleframes;
 	const double sr = g_sr;
 
-	double c = 2 - cos(TWO_PI * x->m_fc/sr);
-	double b = sqrt(pow(c, 2) - 1) - c;
-	double a = 1 + b;
+	double c = 2 + cos(TWO_PI * x->m_fc/sr);
+	double b = c - sqrt(c * c - 1);
+	double a = 1 - b;
 	double delayed = x->m_delayed;
 
 	while (n--) {
@@ -202,7 +152,7 @@ void LPF_perform64(t_LPF *x, t_object *dsp64, double **ins, long numins, double 
 	// double b = costh - sqrt(costh*costh - 1);
 	// double a = 1 - b;
 
-	// LPF
+	// HPF
 	// a = 1 + b
 	// b = sqrt((2 - cos(2*M_PI*freq/sr))^2 - 1) - 2 + cos(2*M_PI*freq/sr)
 	// double costh = 2 - cos(2*M_PI*g_freq/sr);

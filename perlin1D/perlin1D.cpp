@@ -48,7 +48,7 @@ void perlin1D_handle_hello(t_perlin1D* x);
 double PerlinNoise1D(t_perlin1D* x, double v1);
     
 //////////////////////// global class pointer variable
-void *perlin1D_class;
+t_class* perlin1D_class;
 double gradients[64];
 
 void ext_main(void *r)
@@ -148,8 +148,8 @@ void initGradients(t_perlin1D* x, int seed) {
 double CoherentNoiseGradient(double x) {
     int intX = (int)floor(x);
     double dist = x - intX;
-    double pos0 = gradients[intX] * dist; // 기울기 상의 위치
-    double pos1 = -1 * gradients[intX + 1] * (1 - dist);
+    double pos0 = gradients[intX] * dist; // 기울기 * 거리 (y0 = ax)
+    double pos1 = -1 * gradients[intX + 1] * (1 - dist); // (y1 = -1 * a1 * (1 - 거리))
     return lerp(pos0, pos1, easing2(dist));
 }
 

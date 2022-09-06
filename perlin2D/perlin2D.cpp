@@ -35,7 +35,7 @@ void perlin2D_handle_list(t_perlin2D *x, t_symbol *s, long argc, t_atom *argv);
 double radians(double degree);
     
 //////////////////////// global class pointer variable
-void *perlin2D_class;
+t_class* perlin2D_class;
 
 
 //////////////////////// global variable

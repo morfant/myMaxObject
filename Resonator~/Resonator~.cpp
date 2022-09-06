@@ -11,6 +11,7 @@
 #include "ext_obex.h"		// required for "new" style objects
 #include "z_dsp.h"			// required for MSP objects
 
+#define TWO_PI 2 * M_PI
 
 // struct to represent the object's state
 typedef struct _Resonator {
@@ -18,6 +19,8 @@ typedef struct _Resonator {
 	double m_sampleRate;
 	double m_fc;
 	double m_bw;
+	double m_delayed[2];
+	double m_delayedIn[2];
 } t_Resonator;
 
 
@@ -121,15 +124,15 @@ void Resonator_dsp64(t_Resonator *x, t_object *dsp64, short *count, double sampl
 
 	x->m_sampleRate = samplerate;
 
-	for (size_t i = 0; i < 2; i++) {
-		x->m_delIn[i] = 0.0;
-		x->m_delOut[i] = 0.0;
-	}
+	// for (size_t i = 0; i < 2; i++) {
+	// 	x->m_delIn[i] = 0.0;
+	// 	x->m_delOut[i] = 0.0;
+	// }
 
-	for (size_t i = 0; i < 2; i++) {
-		post("%f", x->m_delIn[i]);
-		post("%f", x->m_delOut[i]);
-	}
+	// for (size_t i = 0; i < 2; i++) {
+	// 	post("%f", x->m_delIn[i]);
+	// 	post("%f", x->m_delOut[i]);
+	// }
 
 	x->m_bw = 700;
 	x->m_fc = 2000;
@@ -155,26 +158,75 @@ void Resonator_perform64(t_Resonator *x, t_object *dsp64, double **ins, long num
 	int n = sampleframes;
 	const double sr = x->m_sampleRate;
 
-	// Resonator
-	// y(n) = x(n) - b1y(n - 1) - b2y(n - 2)
-	// r = 1 - M_PI(x->m_bw/sr);
-	// b1 = -(4r^2/(1+r^2))*cos(2*M_PI*g_freq/sr)
-	// b2 = r^2
-	// scaling = (1 - r^2)*sin(acos(2*M_PI*g_freq/sr))
-	double freq = x->m_fc;
-	double bw = x->m_bw;
-	double r = 1.0 - M_PI * (bw/sr);
-	double rr = 2*r;
-	double rsq = r*r;
-	double costh = (rr/ (1 + rsq)) * cos(2*M_PI*freq/sr);
-	double scal = (1 - rsq) * sin(acos(costh));
-	double del[2] = {0.0, 0.0};
+	// steiglitz
+	// y = x + b1y[n-1] - b2y[n-2]
+	// double freq = x->m_fc;
+	// double bw = x->m_bw;
+	// double r = 1 - TWO_PI * (x->m_bw/sr);
+	// double b2 = r*r;
+	// double theta = TWO_PI * (x->m_fc/sr);
+	// double b1 = 2 * r * cos(theta);
+	// double a = (1 - (r*r))*sin(TWO_PI*x->m_fc/sr); // Audio programming book(p.483)
+	// double delayed[2] = {0.0, 0.0};
 
+
+	// Audio programming book (p.487)
+	// y = ax - b1y[n-1] - b2y[n-2]
+	// double r, rsq, rr, costh, scal, a, b1, b2;
+	// r = 1 - M_PI * (x->m_bw / sr);
+	// rr = 2*r;
+	// rsq = r*r;
+	// costh = (rr/(1 + rsq))*cos(TWO_PI*x->m_fc/sr);
+	// scal = (1 - rsq) * sin(TWO_PI*x->m_fc/sr);
+	// a = scal;
+	// b1 = rr*costh;
+	// b2 = rsq;
+	// double delayed[2] = {0.0, 0.0};
+
+	// while(n--) {
+	// 	*outL = a * (*inL++) + (b1 * delayed[0]) - (b2 * delayed[1]);
+	// 	delayed[1] = delayed[0];
+	// 	delayed[0] = *outL++;
+	// }
+
+
+
+	// Audio programming book (p.487 bottom)
+	// y = a1x - a2x[n-2] - b1y[n-1] - b2y[n-2]
+	double r, rsq, rr, costh, scal, a1, a2, b1, b2, w;
+	r = 1 - M_PI * (x->m_bw / sr);
+	rr = 2*r;
+	rsq = r*r;
+	costh = (rr/(1 + rsq))*cos(TWO_PI*x->m_fc/sr);
+	scal = (1 - r);
+	a1 = scal;
+	a2 = r;
+	b1 = rr*costh;
+	b2 = rsq;
+	double delayed[2] = {0.0, 0.0};
+	double delayedIn[2] = {0.0, 0.0};
+
+	// my opinion - not working
+	// while(n--) {
+	// 	*outL = a1 * (*inL) - (a2 * delayedIn[1]) + (b1 * delayed[0]) - (b2 * delayed[1]);
+	// 	delayed[1] = delayed[0];
+	// 	delayed[0] = *outL++;
+	// 	delayedIn[1] = delayedIn[0];
+	// 	delayedIn[0] = *inL++;
+	// }
+
+	// book code(p.487 bottom) - working
 	while(n--) {
-		*outL = *inL++ * scal + rr*costh*del[0] - rsq*del[1];
-		del[1] = del[0];
-		del[0] = *outL++;
+		w = a1 * (*inL++) + (b1*delayed[0]) - (b2*delayed[1]);
+		*outL++ = w - (a2*delayed[1]);
+		delayed[1] = delayed[0];
+		delayed[0] = w;
 	}
 
+	x->m_delayed[0] = delayed[0];
+	x->m_delayed[1] = delayed[1];
+
+	x->m_delayedIn[0] = delayedIn[0];
+	x->m_delayedIn[1] = delayedIn[1];
 }
 
