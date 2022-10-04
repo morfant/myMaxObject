@@ -100,13 +100,13 @@ double noise1D(int x, int seed) {
 }
 
 double easing(double n) {
-    // -2x3 + 3x2
+    // -2*(x^3) + 3*(x^2)
     // return (n * n * n * -2) + (n * n * 3);
-    return n * n * ((n * -2) + 3);
+    return n * n * ((-2 * n) + 3);
 }
 
 double easing2(double t) {
-    // 6t5-15t4+10t3
+    // 6*(t^5) - 15(t^4) + 10(t^3)
     return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
@@ -122,8 +122,12 @@ double CoherentNoise(double x) {
     return lerp(n0, n1, fracX);
 }
 
+int fastfloor(double x) {
+    return x > 0 ? (int)x : (int)x-1;
+}
+
 double CoherentNoiseEasing(double x) {
-    int intX = (int)floor(x);
+    int intX = (int)fastfloor(x);
     double fracX = x - intX;
     double n0 = IntegerNoise(intX);
     double n1 = IntegerNoise(intX + 1);
@@ -131,7 +135,7 @@ double CoherentNoiseEasing(double x) {
 }
 
 double CoherentNoiseEasing2(double x) {
-    int intX = (int)floor(x);
+    int intX = (int)fastfloor(x);
     double fracX = x - intX;
     double n0 = IntegerNoise(intX);
     double n1 = IntegerNoise(intX + 1);
@@ -148,8 +152,8 @@ void initGradients(t_perlin1D* x, int seed) {
 double CoherentNoiseGradient(double x) {
     int intX = (int)floor(x);
     double dist = x - intX;
-    double pos0 = gradients[intX] * dist; // 기울기 * 거리 (y0 = ax)
-    double pos1 = -1 * gradients[intX + 1] * (1 - dist); // (y1 = -1 * a1 * (1 - 거리))
+    double pos0 = gradients[intX%64] * dist; // 기울기 * 거리 (y0 = ax)
+    double pos1 = -1 * gradients[(intX + 1)%64] * (1 - dist); // (y1 = -1 * a1 * (1 - 거리))
     return lerp(pos0, pos1, easing2(dist));
 }
 

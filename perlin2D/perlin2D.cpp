@@ -40,14 +40,14 @@ t_class* perlin2D_class;
 
 //////////////////////// global variable
 int permutation[512];
-const int p[] = {
+const int p[] = { // in SC: Array.series(256, 0, 1).scramble
     151,160,137,91,90,15,
     131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
     190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
     88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,134,139,48,27,166,
     77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,
     102,143,54, 65,25,63,161, 1,216,80,73,209,76,132,187,208, 89,18,169,200,196,
-    135,130,116,188,159,86,164,100,109,198,173,186, 3,64,52,217,226,250,124,123,
+    135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,
     5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,
     223,183,170,213,119,248,152, 2,44,154,163, 70,221,153,101,155,167, 43,172,9,
     129,22,39,253, 19,98,108,110,79,113,224,232,178,185, 112,104,218,246,97,228,
@@ -56,15 +56,15 @@ const int p[] = {
     138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
 };
 
-const double gradients[8][2] = {
+const double gradients[4][2] = {
     {1.0, 0.0}, // 0
-    {0.70710678118655, 0.70710678118655}, // 45
+    // {0.70710678118655, 0.70710678118655}, // 45
     {0.0, 1.0}, // 90
-    {-0.70710678118655, 0.70710678118655}, // 135
+    // {-0.70710678118655, 0.70710678118655}, // 135
     {-1.0, 0.0}, // 180
-    {-0.70710678118655, -0.70710678118655}, // 225 
+    // {-0.70710678118655, -0.70710678118655}, // 225 
     {0.0, -1.0}, // 270 
-    {0.70710678118655, -0.70710678118655}, // 315 
+    // {0.70710678118655, -0.70710678118655}, // 315 
 };
 
 
@@ -73,22 +73,6 @@ void init() {
     for (int i = 0; i < 512; i++) {
         permutation[i] = p[i % 256];
     }
-}
-
-// http://libnoise.sourceforge.net/noisegen/index.html#linearcoherentnoise
-// modifed n = (n >> 13) ^ n; ---> n = (n << 13) ^ n;
-double IntegerNoise(int n) {
-    n = (n << 13) ^ n;
-    int nn = (n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff;
-    return 1.0 - ((double)nn / 1073741824.0);
-}
-
-double noise1D(int x, int seed) {
-    return IntegerNoise(x * 1619 + seed * 13397);
-}
-
-double radians(double degree) {
-    return M_PI * (degree / 180.0);
 }
 
 int fastfloor(double x) {
@@ -120,18 +104,21 @@ double CoherentNoiseGradient2D(t_perlin2D *o, double x, double y) {
     double fracX = x - intX;
     double fracY = y - intY;
 
-    intX = intX & 255;
+    intX = intX & 255; // ==> % 256
     intY = intY & 255;
 
-    int gradIdx00 = permutation[intX + permutation[intY] + (o->m_seed & 255)] % 8;
-    int gradIdx10 = permutation[intX + 1 + permutation[intY] + (o->m_seed & 255)] % 8;
-    int gradIdx01 = permutation[intX + permutation[intY + 1] + (o->m_seed & 255)] % 8;
-    int gradIdx11 = permutation[intX + 1 + permutation[intY + 1] + (o->m_seed & 255)] % 8;
+    // select gradients with permutation
+    int gradIdx00 = (permutation[intX + permutation[intY]] + (o->m_seed & 255)) % 4;
+    int gradIdx10 = (permutation[intX + 1 + permutation[intY]] + (o->m_seed & 255)) % 4;
+    int gradIdx01 = (permutation[intX + permutation[intY + 1]] + (o->m_seed & 255)) % 4;
+    int gradIdx11 = (permutation[intX + 1 + permutation[intY + 1]] + (o->m_seed & 255)) % 4;
 
-    // 영향력 벡터
-    double gradDotDist00 = dot(gradients[gradIdx00], fracX, fracY);
-    double gradDotDist10 = dot(gradients[gradIdx10], fracX - 1, fracY);
-    double gradDotDist01 = dot(gradients[gradIdx01], fracX, fracY - 1);
+    // 영향력 구하기(gradient vector와 dist vector의 내적(dot))
+    // A dot B ==> A.x * B.x + A.y + B.y
+    // dist vector의 크기에 따라 각 지점의 gradient 벡터의 영향력을 결정
+    double gradDotDist00 = dot(gradients[gradIdx00], fracX - 0, fracY - 0);
+    double gradDotDist10 = dot(gradients[gradIdx10], fracX - 1, fracY - 0);
+    double gradDotDist01 = dot(gradients[gradIdx01], fracX - 0, fracY - 1);
     double gradDotDist11 = dot(gradients[gradIdx11], fracX - 1, fracY - 1);
 
     double u = easing2(fracX);
